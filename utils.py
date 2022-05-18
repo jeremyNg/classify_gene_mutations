@@ -55,10 +55,13 @@ def translate_sequence(sequence):
 
     amino_acid_sequence = ""
 
-    for start in range(len(sequence)/3):
+    for start in range(int(len(sequence)/3)):
         try:
-            codon = sequence[(start*3):start+3]
+            first = start * 3
+            end = first + 3
+            codon = sequence[first:end]
             amino_acid = map_codon_to_amino_acid(codon)
+
             if amino_acid == "*":
                 """
                 we will not add the stop codon, preferring instead to return
@@ -111,7 +114,7 @@ def classify_mutation(normal, mutant):
         mutant_sequence = translate_sequence(mutant)
 
         if mutant_sequence == normal_sequence:
-            return "Synonymous mutation detected"
+            return "Synonymous mutation"
         else:
             if len(mutant_sequence) == len(normal_sequence):
                 # Mis-sense substitution
@@ -126,7 +129,7 @@ def classify_mutation(normal, mutant):
             # Since we terminate translation upon encountering a stop codon,
             # the mutant sequence will be shorter; hence, if there is a gain of
             # stop codon, this block is executed.
-                return "Nonsense mutation detected"
+                return "Nonsense mutation"
             else:
                 # This block is executed only if the amino acid sequence length
                 # of the mutant sequence is longer than the normal sequence,
