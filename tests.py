@@ -50,7 +50,7 @@ class TestUtils(unittest.TestCase):
         result = [Mutations("T", "C")]
         self.assertListEqual(align_sequences(normal, mutant), result)
 
-    def map_amino_acid_to_property(self):
+    def test_map_amino_acid_to_property(self):
         Mutations = namedtuple('mutations', 'normal,mutant')
         self.assertEqual(map_amino_acid_to_property("A"), "uncharged")
 
